@@ -1,15 +1,6 @@
 FROM dockerhub.timeweb.cloud/library/python:3.12-slim
 
-RUN apt-get update && apt-get install -y make redis-server curl git
-
-# Установка pyenv
-RUN curl https://pyenv.run | bash
-
-# Добавление pyenv в PATH
-ENV PATH="/root/.pyenv/bin:/root/.pyenv/shims:${PATH}"
-
-# Установка Python 3.12.1 через pyenv
-RUN pyenv install 3.12.1 && pyenv global 3.12.1
+RUN apt-get update && apt-get install -y make redis-server
 
 RUN pip install pipenv
 
