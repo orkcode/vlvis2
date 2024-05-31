@@ -12,6 +12,14 @@ services:
     volumes:
       - .:/app
     command: make setup_and_run
+    depends_on:
+      - redis
+
+  redis:
+    image: dockerhub.timeweb.cloud/library/redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
 
   nginx:
     image: dockerhub.timeweb.cloud/library/nginx:1.23-alpine
