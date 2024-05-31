@@ -1,0 +1,24 @@
+{% if card %}
+<div class="media-container">
+    {% if card.is_image %}
+<script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true,
+        'disableScrolling': true,
+    })
+</script>
+        <a href="{{ card.media_file.url }}" data-lightbox="image-{{ card.id }}" data-title="Image">
+            <img src="{{ card.media_file.url }}" class="img-fluid" alt="Image">
+        </a>
+    {% elif card.is_video %}
+        <div class="ratio ratio-16x9">
+            <video controls>
+            <source src="{{ card.media_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% else  %}
+    <p>Файл не поддерживается.</p>
+    {% endif %}
+{% endif %}
+</div>
