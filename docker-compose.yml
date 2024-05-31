@@ -14,7 +14,7 @@ services:
     command: make setup_and_run
 
   nginx:
-    image: nginx:1.23-alpine
+    image: dockerhub.timeweb.cloud/library/nginx:1.23-alpine
     container_name: ngx
     ports:
       - "80:80"
