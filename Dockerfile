@@ -1,6 +1,6 @@
 FROM dockerhub.timeweb.cloud/library/python:3.11-slim-buster
 
-RUN apt-get update && apt-get install -y make redis-server curl
+RUN apt-get update && apt-get install -y make redis-server curl git
 
 # Установка pyenv
 RUN curl https://pyenv.run | bash
