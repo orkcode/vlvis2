@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - static_volume:/app/static
     command: make setup_and_run
     depends_on:
       - redis
@@ -22,11 +23,13 @@ services:
       - "6379:6379"
 
   nginx:
-    image: dockerhub.timeweb.cloud/library/nginx:1.23-alpine
+    image: dockerhub.timeweb.cloud/library/nginx:latest
     container_name: ngx
     ports:
       - "80:80"
     volumes:
+      - static_volume:/app/static
       - ./nginx:/etc/nginx/conf.d
     depends_on:
       - app
+      - django
