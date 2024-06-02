@@ -20,6 +20,6 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'delete-unused-files-every-30-minutes': {
         'task': 'qr.tasks.delete_unused_files_task',  # Замените на фактический путь к вашей задаче
-        'schedule': crontab(minute='*/1'),  # Выполняется каждые 30 минут
+        'schedule': crontab(minute='*/30'),  # Выполняется каждые 30 минут
     },
 }
