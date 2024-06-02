@@ -1,6 +1,6 @@
 .PHONY: setup_and_run load superuser run static
 
-setup_and_run: load superuser run
+setup_and_run: static load superuser run
 
 run:
 	pipenv run celery --app core.celery worker --purge --beat --loglevel DEBUG --autoscale=0,10 --without-gossip --without-mingle --without-heartbeat & pipenv run ./manage.py runserver 0.0.0.0:8000
