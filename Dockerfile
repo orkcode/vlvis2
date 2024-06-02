@@ -12,4 +12,6 @@ RUN pipenv install --deploy --ignore-pipfile
 
 COPY . ${APP_ROOT}
 
+RUN pipenv run python manage.py collectstatic --noinput
+
 CMD ["gunicorn", "-c", "gunicorn.conf.py", "config.wsgi:application"]
