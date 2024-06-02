@@ -7,6 +7,9 @@ class CardForm(forms.ModelForm):
     class Meta:
         model = Card
         fields = ['media_file', 'password']
+        widgets = {
+            'media_file': forms.ClearableFileInput(attrs={'enctype': 'multipart/form-data'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
@@ -61,6 +64,5 @@ class ChangePasswordForm(forms.ModelForm):
             self.add_error('confirm_password', "Новые пароли не совпадают.")
 
         if old_password != self.instance.password:
-            print(f'Старый:{self.instance.password}  НОВЫЙ:{old_password}')
             self.add_error('password', "Старый пароль неверен.")
         return cleaned_data

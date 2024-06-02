@@ -6,6 +6,11 @@ from .models import Card
 from .forms import CardForm, SetPasswordForm, ChangePasswordForm
 import qrcode
 from io import BytesIO
+import tempfile
+from moviepy.editor import VideoFileClip
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+import os
 
 
 class GenerateQRCodeImageView(View):
@@ -50,6 +55,23 @@ class CardDetailView(View):
                 card.media_file = media_file_form.cleaned_data['media_file']
                 card.save()
                 return redirect('card_detail', uuid=card.uuid)
+            else:
+                if card.media_file.name.lower().endswith(('.mp4', '.avi', '.mkv', '.mov')):
+                    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                        for chunk in card.media_file.chunks():
+                            temp_file.write(chunk)
+                        temp_path = temp_file.name
+                        try:
+                            video = VideoFileClip(temp_path)
+                            duration = video.duration
+                            if duration > 150:  # 2.5 минут = 150 секунд
+                                media_file_form.add_error('media_file', _('Ваше видео дольше 2.5 минуты'))
+                        finally:
+                            video.reader.close()
+                            if video.audio:
+                                video.audio.reader.close_proc()
+                            os.remove(temp_path)
+
             set_password_form = SetPasswordForm()
             change_password_form = ChangePasswordForm()
         elif form_type == 'set_password':

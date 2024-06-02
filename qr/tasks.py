@@ -5,6 +5,7 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.text import get_valid_filename
+from django.conf import settings
 from qr.models import Card
 from moviepy.editor import VideoFileClip
 import os
@@ -49,3 +50,31 @@ def compress_media_file_task(self, instance_uuid):
 
     except Exception as e:
         print(f"Ошибка при сжатии файла: {e}")
+
+
+def get_card_files():
+    card_files = set()
+    for card in Card.objects.all():
+        if card.media_file:
+            card_files.add(card.media_file.path)
+    return card_files
+
+@shared_task(bind=True)
+def delete_unused_files_task(self):
+    try:
+        upload_dir = settings.MEDIA_ROOT
+        card_files = get_card_files()
+
+        if not os.path.exists(upload_dir):
+            return
+
+        for root, dirs, files in os.walk(upload_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                if file_path not in card_files:
+                    try:
+                        os.remove(file_path)
+                    except Exception as e:
+                        print(f"Ошибка при удалении {file_path}: {e}")
+    except Exception as e:
+        print(f"Ошибка при удалении неиспользуемых файлов: {e}")

@@ -14,13 +14,16 @@ def validate_video_duration(file):
                 temp_file.write(chunk)
             temp_path = temp_file.name
 
-        video = VideoFileClip(temp_path)
-        duration = video.duration
-        if duration > 150:  # 2.5 минут = 150 секунд
-            raise ValidationError(
-                _('Видео должно быть не более 2.5 минут'),
-                code='invalid'
-            )
-        video.reader.close()
-        video.audio.reader.close_proc()
-        os.remove(temp_path)
+        try:
+            video = VideoFileClip(temp_path)
+            duration = video.duration
+            if duration > 150:  # 2.5 минут = 150 секунд
+                raise ValidationError(
+                    _('Видео должно быть не более 2.5 минут'),
+                    code='invalid'
+                )
+        finally:
+            video.reader.close()
+            if video.audio:
+                video.audio.reader.close_proc()
+            os.remove(temp_path)

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<!-- Loader -->
+<div class="loader" id="loader"></div>
+
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
@@ -127,6 +130,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 modal.hide();
             }
         });
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.querySelector('form[method="post"][enctype="multipart/form-data"]');
+    form.addEventListener('submit', function() {
+        document.getElementById('loader').style.display = 'block';
     });
 });
 </script>

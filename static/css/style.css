@@ -43,3 +43,24 @@ body {
         .btn i {
             margin-right: 5px;
         }
+
+.loader {
+    border: 16px solid #f3e6e6; /* Light pink */
+    border-top: 16px solid #ff85b3; /* Pink */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -60px; /* Half of the width */
+    margin-top: -60px; /* Half of the height */
+    z-index: 1000;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
