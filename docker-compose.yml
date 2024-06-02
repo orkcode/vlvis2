@@ -11,7 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
       - uploads_volume:/app/uploads
     command: make setup_and_run
     depends_on:
@@ -29,7 +29,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
       - uploads_volume:/app/uploads
       - ./nginx:/etc/nginx/conf.d
     depends_on:
