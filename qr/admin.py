@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from io import BytesIO
 from django import forms
 from django.http import HttpResponseRedirect
+from django.utils.html import format_html
 from django.urls import reverse
 from django.shortcuts import render
 from qr.tasks import create_cards_task
@@ -42,8 +43,14 @@ def make_inactive(modeladmin, request, queryset):
     modeladmin.message_user(request, "Выбранные карты были успешно деактивированы.")
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'uuid', 'is_active')
+    list_display = ('id', 'uuid', 'is_active', 'view_card_button')
     actions = [create_cards, 'create_multiple_cards', make_active, make_inactive]
+
+    def view_card_button(self, obj):
+        url = reverse('card_detail', args=[obj.uuid])
+        return format_html('<a class="button" href="{}" target="_blank">Перейти к открытке</a>', url)
+
+    view_card_button.allow_tags = True
 
     def create_multiple_cards(self, request, queryset):
         if not queryset:
