@@ -20,10 +20,11 @@ class Card(models.Model):
                                   help_text=_('Загрузите файл изображения или видео (не более 2,5 минут)'),
                                   blank=True, null=True)
     password = models.CharField(_("Пароль"), max_length=128, blank=True, null=True)
+    is_active  = models.BooleanField(_('Активно'), default=True)
 
     class Meta:
-        verbose_name = _("Карточка")
-        verbose_name_plural  =  _("Карточки")
+        verbose_name = _("Открытка")
+        verbose_name_plural  =  _("Открытки")
 
     def __str__(self):
         return str(self.uuid)

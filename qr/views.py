@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, View
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .models import Card
 from .forms import CardForm, SetPasswordForm, ChangePasswordForm
@@ -37,6 +37,9 @@ class GenerateQRCodeImageView(View):
 class CardDetailView(View):
     def get(self, request, *args, **kwargs):
         card = get_object_or_404(Card, uuid=self.kwargs['uuid'])
+        if not card.is_active:
+            return HttpResponse(_('Не активна'))
+
         context = {
             'card': card,
             'media_file_form': CardForm(instance=card),
@@ -48,6 +51,9 @@ class CardDetailView(View):
 
     def post(self, request, *args, **kwargs):
         card = get_object_or_404(Card, uuid=self.kwargs['uuid'])
+        if not card.is_active:
+            return HttpResponse(_('Не активна'))
+
         form_type = request.POST.get('form_type', '')
         if form_type == 'add_media':
             media_file_form = CardForm(request.POST, request.FILES, instance=card)

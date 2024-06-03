@@ -78,3 +78,8 @@ def delete_unused_files_task(self):
                         print(f"Ошибка при удалении {file_path}: {e}")
     except Exception as e:
         print(f"Ошибка при удалении неиспользуемых файлов: {e}")
+        
+        
+@shared_task
+def create_cards_task(number_of_cards):
+    Card.objects.bulk_create([Card() for _ in range(number_of_cards)])
