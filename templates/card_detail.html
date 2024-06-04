@@ -22,20 +22,20 @@
                     <p>Медиафайл отсутствует.</p>
                 {% endif %}
             </div>
-            <div class="btn-group" role="group" aria-label="Card Actions" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
-                    <i class="fas fa-upload"></i> Загрузить файл
-                </button>
-                {% if card.password %}
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                        <i class="fas fa-key"></i> Сменить пароль
-                    </button>
-                {% else %}
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPasswordModal">
-                        <i class="fas fa-lock"></i> Установить пароль
-                    </button>
-                {% endif %}
-            </div>
+            <div class="btn-group mt-3" role="group" aria-label="Card Actions">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
+        <i class="fas fa-upload"></i> Загрузить файл
+    </button>
+    {% if card.password %}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+            <i class="fas fa-key"></i> Сменить пароль
+        </button>
+    {% else %}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPasswordModal">
+            <i class="fas fa-lock"></i> Установить пароль
+        </button>
+    {% endif %}
+</div>
         </div>
     </div>
 </div>
