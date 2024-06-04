@@ -11,9 +11,9 @@
             <div class="card-text">
                 {% if card.media_file %}
 
-                        <button href="{{ card.media_file.url }}" class="btn btn-primary" target="_blank" download>
+                        <a href="{{ card.media_file.url }}" class="btn btn-primary" target="_blank" download>
                             <i class="fas fa-download"></i> Скачать медиа
-                        </button>
+                        </a>
 
                     <div class="mt-3">
                         {% include 'media_player.html' with card=card %}
