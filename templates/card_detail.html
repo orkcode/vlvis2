@@ -10,11 +10,11 @@
             <h5 class="card-title">Карточка {{ card.uuid }}</h5>
             <div class="card-text">
                 {% if card.media_file %}
-                    <div class="mb-3">
-                        <a href="{{ card.media_file.url }}" class="btn btn-success" target="_blank" download>
-                            <i class="fa fa-download"></i> Скачать медиа
-                        </a>
-                    </div>
+
+                        <button href="{{ card.media_file.url }}" class="btn btn-primary" target="_blank" download>
+                            <i class="fas fa-download"></i> Скачать медиа
+                        </button>
+
                     <div>
                         {% include 'media_player.html' with card=card %}
                     </div>
@@ -22,18 +22,20 @@
                     <p>Медиафайл отсутствует.</p>
                 {% endif %}
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
-                <i class="fa fa-upload"></i> Загрузить файл
-            </button>
-            {% if card.password %}
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                    <i class="fa fa-key"></i> Сменить пароль
+            <div class="btn-group" role="group" aria-label="Card Actions">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
+                    <i class="fas fa-upload"></i> Загрузить файл
                 </button>
-            {% else %}
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#setPasswordModal">
-                    <i class="fa fa-lock"></i> Установить пароль
-                </button>
-            {% endif %}
+                {% if card.password %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                        <i class="fas fa-key"></i> Сменить пароль
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPasswordModal">
+                        <i class="fas fa-lock"></i> Установить пароль
+                    </button>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

@@ -9,14 +9,15 @@
     })
 </script>
         <a href="{{ card.media_file.url }}" data-lightbox="image-{{ card.id }}" data-title="Image">
-            <img src="{{ card.media_file.url }}" class="img-fluid" alt="Image">
+            <img src="{{ card.media_file.url }}" class="img-fluid" alt="Image" style="max-height: 500px;">
         </a>
     {% elif card.is_video %}
-        <div class="ratio ratio-16x9">
-            <video controls>
-            <source src="{{ card.media_file.url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+     <div class="ratio ratio-16x9" style="max-height: 500px;">
+    <video controls class="video-player">
+        <source src="{{ card.media_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
     {% else  %}
     <p>Файл не поддерживается.</p>
     {% endif %}
