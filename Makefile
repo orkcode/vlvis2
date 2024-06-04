@@ -13,4 +13,4 @@ static:
 	pipenv run python manage.py collectstatic --noinput
 
 superuser:
-	pipenv run python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')"
+	pipenv run python manage.py shell -c "import os; from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', os.getenv('DJANGO_SUPERUSER_PASSWORD'))"
