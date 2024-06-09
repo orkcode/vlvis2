@@ -38,6 +38,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '185.233.186.243',
     '3004109-vg50432.twc1.net',
+    'stickerchill.ru',
 ]
 
 
