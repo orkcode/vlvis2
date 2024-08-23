@@ -7,9 +7,6 @@ class CardForm(forms.ModelForm):
     class Meta:
         model = Card
         fields = ['media_file', 'password']
-        widgets = {
-            'media_file': forms.ClearableFileInput(attrs={'enctype': 'multipart/form-data'}),
-        }
 
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)

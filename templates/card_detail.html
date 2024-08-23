@@ -9,10 +9,9 @@
         <div class="card-body">
             <div class="card-text">
                 {% if card.media_file %}
-
-                        <a href="{{ card.media_file.url }}" class="btn btn-primary" target="_blank" download>
-                            <i class="fas fa-download"></i> Скачать медиа
-                        </a>
+                    <a href="{{ card.media_file.url }}" class="btn btn-primary" target="_blank" download>
+                        <i class="fas fa-download"></i> Скачать медиа
+                    </a>
 
                     <div class="mt-3">
                         {% include 'media_player.html' with card=card %}
@@ -22,19 +21,10 @@
                 {% endif %}
             </div>
             <div class="btn-group mt-3" role="group" aria-label="Card Actions">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
-        <i class="fas fa-upload"></i> Загрузить файл
-    </button>
-    {% if card.password %}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-            <i class="fas fa-key"></i> Сменить пароль
-        </button>
-    {% else %}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPasswordModal">
-            <i class="fas fa-lock"></i> Установить пароль
-        </button>
-    {% endif %}
-</div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMediaModal">
+                    <i class="fas fa-upload"></i> Загрузить файл
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -51,7 +41,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{ media_file_form|crispy }}
+                    <div class="form-group">
+                        <label for="id_media_file">Выберите файл</label>
+                        <input type="file" name="media_file" class="form-control" id="id_media_file">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
@@ -62,59 +55,12 @@
     </div>
 </div>
 
-<!-- Модальное окно для установки пароля -->
-<div class="modal fade {% if form_type == 'set_password' and not set_password_form.is_valid %}show{% endif %}" id="setPasswordModal" tabindex="-1" role="dialog" aria-labelledby="setPasswordModalLabel" aria-hidden="true" style="{% if form_type == 'set_password' and not set_password_form.is_valid %}display:block;{% else %}display:none;{% endif %}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="post" action="">
-                {% csrf_token %}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="setPasswordModalLabel">Установить пароль</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ set_password_form|crispy }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <button type="submit" class="btn btn-primary" name="form_type" value="set_password">Установить</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Модальное окно для смены пароля -->
-<div class="modal fade {% if form_type == 'change_password' and not change_password_form.is_valid %}show{% endif %}" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true" style="{% if form_type == 'change_password' and not change_password_form.is_valid %}display:block;{% else %}display:none;{% endif %}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="post" action="">
-                {% csrf_token %}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="changePasswordModalLabel">Сменить пароль</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ change_password_form.password|as_crispy_field }}
-                    {{ change_password_form.new_password|as_crispy_field }}
-                    {{ change_password_form.confirm_password|as_crispy_field }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <button type="submit" class="btn btn-primary" name="form_type" value="change_password">Сохранить</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block js %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var modals = ['#addMediaModal', '#setPasswordModal', '#changePasswordModal'];
+    var modals = ['#addMediaModal'];
     modals.forEach(function(modalId) {
         var modalElement = document.querySelector(modalId);
         if (modalElement && modalElement.style.display === 'block') {
@@ -143,3 +89,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 </script>
 {% endblock %}
+

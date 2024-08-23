@@ -38,6 +38,10 @@
     <div class="container">
       <p class="mb-0">ИП Точенюк А.А.</p>
       <p class="mb-0">Все права защищены © 2024</p>
+      <p class="mb-0">
+        <a href="{% url 'privacy' %}">Политика конфиденциальности</a> |
+        <a href="{% url 'agreement' %}">Пользовательское соглашение</a>
+      </p>
     </div>
   </footer>
 </div>
@@ -53,5 +57,3 @@
 
   {% block js %}{% endblock js %}
 </body>
-
-</html>

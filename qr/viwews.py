@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from django.urls import reverse
 from .models import Card
-from django.views.generic.base import TemplateView
 from .forms import CardForm, SetPasswordForm, ChangePasswordForm
 import qrcode
 from io import BytesIO
@@ -15,10 +14,7 @@ import os
 
 
 class PrivacyPolicyView(TemplateView):
-    template_name = 'privacy.html'
-    
-class AgreementPolicyView(TemplateView):
-    template_name = 'agreement.html'
+    template_name = 'privacy_policy.html'
 
 class GenerateQRCodeImageView(View):
     def get(self, request, *args, **kwargs):

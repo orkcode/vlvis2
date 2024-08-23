@@ -16,9 +16,6 @@ import os
 
 class PrivacyPolicyView(TemplateView):
     template_name = 'privacy.html'
-    
-class AgreementPolicyView(TemplateView):
-    template_name = 'agreement.html'
 
 class GenerateQRCodeImageView(View):
     def get(self, request, *args, **kwargs):
